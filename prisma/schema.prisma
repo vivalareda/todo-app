@@ -25,7 +25,6 @@ model Profile {
 model Task {
   id String @id @default(uuid())
   title String
-  description String
   completed Boolean @default(false)
 
   profileId String
