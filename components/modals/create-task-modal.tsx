@@ -1,11 +1,9 @@
-"use client";
-
+import { useModal } from "@/hooks/use-modal-store";
 import * as z from "zod";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
-import { db } from "@/lib/db";
 import{
     Dialog,
     DialogContent,
@@ -29,24 +27,26 @@ const formSchema = z.object({
     title: z.string(),
 })
 
-export const InitialModal = () => {
-    const form = useForm({
-        resolver: zodResolver(formSchema),
-        defaultValues:{
-            title: '',
-        }
-    })
-
-    const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        try {
-            await axios.post("/api/tasks", values)
-        } catch (error) {
-            console.log(error)
-        }
+const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues:{
+        title: '',
     }
+})
+
+const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+        await axios.post("/api/tasks", values)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const CreateTaskModal = () => {
+    const { isOpen, onClose } = useModal();
 
     return (
-        <Dialog open>
+        <Dialog open={isOpen}>
             <DialogContent>
                 <DialogHeader className="pt-8 px-6 pb-5 justify-center">
                     <DialogTitle className="text-center">
@@ -83,6 +83,7 @@ export const InitialModal = () => {
                 </Form>
             </DialogContent>
         </Dialog>
-    )
-
+     );
 }
+
+export default CreateTaskModal;
