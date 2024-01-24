@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 
 import type { Metadata } from 'next'
 import './globals.css'
+import { ModalProvider } from "@/components/providers/modal-provider";
 
 const font = Open_Sans({ subsets: ['latin'] })
 

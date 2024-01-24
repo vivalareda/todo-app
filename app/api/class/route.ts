@@ -5,10 +5,10 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
     try {
-        const {title} = await req.json();
+        const {className} = await req.json();
         const user = await currentUser();
 
-        console.log(title)
+        console.log(className)
 
         if (!user){
             return new NextResponse("Unauthorized", { status: 401 });
@@ -24,9 +24,9 @@ export async function POST(req: Request) {
             return new NextResponse("Unauthorized", { status: 401 });
         }
 
-        const task = await db.task.create({
+        const newClass = await db.class.create({
             data: {
-                title,
+                name: className,
                 profileId: profile.id
             }
         })

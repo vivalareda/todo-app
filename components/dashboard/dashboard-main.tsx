@@ -17,7 +17,7 @@ export const MainDashboard = async () => {
         },
     });
 
-    const tasks = await db.task.findMany({
+    const userClasses = await db.class.findMany({
         where: {
             profileId: profile?.id
         }
@@ -26,11 +26,10 @@ export const MainDashboard = async () => {
 
     return (
         <div className="flex gap-5">
-            {tasks.map((task) => (
-                <div key={task.id} className="flex flex-row gap-10">
+            {userClasses.map((classes) => (
+                <div key={classes.id} className="flex flex-row gap-10">
                     <DashboardItem
-                        title={task.title}
-                        completed={task.completed}
+                        classId={classes.name}
                     />
                 </div>
             ))}

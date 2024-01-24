@@ -12,13 +12,11 @@ import {
 
 
 interface DashboardItemProps {
-    title: string;
-    completed: boolean;
+    classId: string;
 };
 
 export const DashboardItem = ({
-    title,
-    completed
+    classId,
 } : DashboardItemProps) => {
     return (
 
@@ -27,22 +25,14 @@ export const DashboardItem = ({
             <Card className="relative shadow-2xl aspect-video rounded-xl p-3 bg-black border border-white/60">
                 <CardHeader>
                     <CardTitle className="flex justify-between items-center gap-4">
-                        {title.toUpperCase()}
-                        <Menu />
+                        {classId.toUpperCase()}
                     </CardTitle>
                 </CardHeader>
-                <Separator className="mt-1"/>
                 <CardContent>
-                <div className="pt-3 gap-2 flex">
-                    {completed ?
-                        <><Check/>Completed</>
-                        :
-                        <><X className="border border-red-300"/>Not completed yet</>
-                    }
-                </div>
-
+                    <div className="border shadow-lg">
+                        LOG680-01-Quiz1 1 Day(s) remaining
+                    </div>
                 </CardContent>
-
             </Card>
         </div>
      );

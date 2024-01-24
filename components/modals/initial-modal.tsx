@@ -26,20 +26,20 @@ import {
 import { Input } from "@/components/ui/input";
 
 const formSchema = z.object({
-    title: z.string(),
+    className: z.string(),
 })
 
 export const InitialModal = () => {
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues:{
-            title: '',
+            className: '',
         }
     })
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
-            await axios.post("/api/tasks", values)
+            await axios.post("/api/class", values)
         } catch (error) {
             console.log(error)
         }
@@ -50,22 +50,22 @@ export const InitialModal = () => {
             <DialogContent>
                 <DialogHeader className="pt-8 px-6 pb-5 justify-center">
                     <DialogTitle className="text-center">
-                        What TODO today?
+                        Start off by creating a class.
                     </DialogTitle>
                 </DialogHeader>
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)}>
                         <FormField
                             control={form.control}
-                            name="title"
+                            name="className"
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel className="font-bold">
-                                        Enter the task's name
+                                        Enter your class Id
                                     </FormLabel>
                                     <FormControl>
                                         <Input
-                                            placeholder="I want to be reminded about my homework..."
+                                            placeholder="Ex.: PHY335"
                                             {...field}
                                         />
                                     </FormControl>

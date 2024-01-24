@@ -24,29 +24,37 @@ import {
 import { Input } from "@/components/ui/input";
 
 const formSchema = z.object({
-    title: z.string(),
+    className: z.string(),
 })
 
 const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues:{
-        title: '',
+        className: '',
     }
 })
 
+
 const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-        await axios.post("/api/tasks", values)
+        console.log(values)
+        await axios.post("/api/class", values)
     } catch (error) {
         console.log(error)
     }
 }
 
-const CreateTaskModal = () => {
+export const CreateTaskModal = () => {
     const { isOpen, onClose } = useModal();
+    const isModalOpen = isOpen
+
+    const handleClose = () => {
+        form.reset();
+        onClose();
+    }
 
     return (
-        <Dialog open={isOpen}>
+        <Dialog open={isOpen} onOpenChange={handleClose}>
             <DialogContent>
                 <DialogHeader className="pt-8 px-6 pb-5 justify-center">
                     <DialogTitle className="text-center">
@@ -57,7 +65,7 @@ const CreateTaskModal = () => {
                     <form onSubmit={form.handleSubmit(onSubmit)}>
                         <FormField
                             control={form.control}
-                            name="title"
+                            name="className"
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel className="font-bold">

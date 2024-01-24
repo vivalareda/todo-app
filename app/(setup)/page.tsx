@@ -6,13 +6,13 @@ import { InitialModal } from "@/components/modals/initial-modal";
 
 const SetupPage = async () => {
   const profile = await initialProfile();
-  const task = await db.task.findFirst({
+  const className = await db.class.findFirst({
     where: {
       profileId: profile.id
     }
   })
 
-  if (task) {
+  if (className) {
     return redirect("/dashboard");
   }
 

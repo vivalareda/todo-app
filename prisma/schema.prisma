@@ -15,42 +15,33 @@ model Profile {
   userId String @unique
   name String
 
-  tasks Task[]
-  categories Category[]
+  classes Class[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-model Task {
-  id String @id @default(uuid())
-  title String
-  completed Boolean @default(false)
-
-  profileId String
-  profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
-
-  categoryId String?
-  category Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([profileId])
-  @@index([categoryId])
-}
-
-model Category {
+model Class {
   id String @id @default(uuid())
   name String
 
+  quizzes Quiz[]
+
   profileId String
-  profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  profile Profile @relation(fields: [profileId], references: [id])
+}
 
-  tasks Task[]
+model Quiz {
+  id          String   @id @default(uuid())
+  title       String
+  startDate   DateTime
+  endDate     DateTime
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  classId     String
+  class       Class    @relation(fields: [classId], references: [id], onDelete: Cascade)
 
-  @@index([profileId])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([classId])
 }
